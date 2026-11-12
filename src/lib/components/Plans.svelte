@@ -1,16 +1,66 @@
 <script>
 	import Badge from './Badge.svelte';
 	import Tag from './Tag.svelte';
+	import OrderModal from './OrderModal.svelte';
+	import { whatsappUrl } from '../data/whatsapp.js';
 	import Check from '@lucide/svelte/icons/check';
 	import Minus from '@lucide/svelte/icons/minus';
 
 	const features = ['Nasi & lauk', 'Sayur & sambal', 'Alat saji', 'Tim serving', 'Menu di luar daftar', 'Tasting gratis'];
 
 	const plans = [
-		{ name: 'Hemat', sub: 'Untuk arisan & syukuran', menu: '3 menu / pax', menuNote: '1 nasi + 1 lauk + 1 sayur', on: [true, true, false, false, false, false], price: 'Rp 35.000 / pax', cta: 'Pilih Hemat', featured: false },
-		{ name: 'Premium', sub: 'Paling sering dipilih', menu: '5 menu / pax', menuNote: '1 nasi + 2 lauk + 1 sayur + 1 pelengkap', on: [true, true, true, true, false, false], price: 'Rp 55.000 / pax', cta: 'Pilih Premium', featured: true },
-		{ name: 'Custom', sub: 'Menu sesuai acara', menu: 'Bebas / pax', menuNote: 'Bisa di luar 16 menu andalan', on: [true, true, true, true, true, true], price: 'Rp 75.000 / pax', cta: 'Konsultasi Custom', featured: false }
+		{
+			name: 'Hemat',
+			sub: 'Untuk arisan & syukuran',
+			menu: '3 menu / pax',
+			menuNote: '1 nasi + 1 lauk + 1 sayur',
+			on: [true, true, false, false, false, false],
+			price: 'Rp 35.000 / pax',
+			priceValue: 35000,
+			slots: { Nasi: 1, 'Lauk Utama': 1, Sayur: 1 },
+			cta: 'Pilih Hemat',
+			featured: false
+		},
+		{
+			name: 'Premium',
+			sub: 'Paling sering dipilih',
+			menu: '5 menu / pax',
+			menuNote: '1 nasi + 2 lauk + 1 sayur + 1 pelengkap',
+			on: [true, true, true, true, false, false],
+			price: 'Rp 55.000 / pax',
+			priceValue: 55000,
+			slots: { Nasi: 1, 'Lauk Utama': 2, Sayur: 1, Pelengkap: 1 },
+			cta: 'Pilih Premium',
+			featured: true
+		},
+		{
+			name: 'Custom',
+			sub: 'Menu sesuai acara',
+			menu: 'Bebas / pax',
+			menuNote: 'Bisa di luar 16 menu andalan',
+			on: [true, true, true, true, true, true],
+			price: 'Rp 75.000 / pax',
+			priceValue: 75000,
+			custom: true,
+			cta: 'Konsultasi Custom',
+			featured: false
+		}
 	];
+
+	let selectedPlan = $state(null);
+
+	function openPlan(plan) {
+		if (plan.custom) {
+			const message = [
+				'Halo Dapur Rasa, saya ingin konsultasi Paket Custom.',
+				'Saya ingin menu dan penawaran yang disesuaikan dengan acara saya.',
+				'Mohon info menu, harga, dan proses selanjutnya. Terima kasih.'
+			].join('\n');
+			window.open(whatsappUrl(message), '_blank', 'noopener');
+			return;
+		}
+		selectedPlan = plan;
+	}
 </script>
 
 <section id="plans" class="paper relative overflow-hidden px-5 py-16 text-cream md:px-10 md:py-24">
@@ -52,7 +102,13 @@
 					</ul>
 
 					<div class="mt-8 border-t border-dashed {p.featured ? 'border-forest/30' : 'border-cream/25'} pt-6">
-						<a href="#plans" class="btn-lime w-full text-sm {p.featured ? 'ring-1 ring-forest/40' : ''}">{p.cta}</a>
+						<button
+							type="button"
+							class="btn-lime w-full text-sm {p.featured ? 'ring-1 ring-forest/40' : ''}"
+							onclick={() => openPlan(p)}
+						>
+							{p.cta}
+						</button>
 						<p class="h-display mt-3 text-sm tracking-wide">Mulai {p.price}</p>
 					</div>
 				</article>
@@ -60,6 +116,10 @@
 		</div>
 	</div>
 </section>
+
+{#if selectedPlan}
+	<OrderModal plan={selectedPlan} onClose={() => (selectedPlan = null)} />
+{/if}
 
 <style>
 	.ticket {

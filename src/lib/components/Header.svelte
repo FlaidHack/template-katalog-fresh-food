@@ -13,6 +13,7 @@
 		</p>
 
 		<div class="flex items-center gap-4">
+			<a href="#about" class="hidden text-sm font-semibold tracking-wide hover:text-lime lg:block">Tentang</a>
 			<a href="#menu" class="hidden text-sm font-semibold tracking-wide hover:text-lime lg:block">Menu</a>
 			<a href="#plans" class="btn-lime hidden !py-2.5 text-sm md:inline-flex">Minta Penawaran</a>
 			<button
@@ -31,8 +32,9 @@
 	{#if open}
 		<nav class="bg-forest-deep/95 px-5 pb-6 md:hidden">
 			<ul class="grid gap-3 text-lg">
-				<li><a href="#menu" onclick={() => (open = false)}>Menu</a></li>
+				<li><a href="#about" onclick={() => (open = false)}>Tentang</a></li>
 				<li><a href="#how" onclick={() => (open = false)}>Cara Pesan</a></li>
+				<li><a href="#menu" onclick={() => (open = false)}>Menu</a></li>
 				<li><a href="#plans" onclick={() => (open = false)}>Paket</a></li>
 				<li><a href="#stories" onclick={() => (open = false)}>Testimoni</a></li>
 				<li><a href="#different" onclick={() => (open = false)}>Kenapa Kami</a></li>

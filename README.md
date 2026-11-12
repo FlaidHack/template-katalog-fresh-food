@@ -15,15 +15,24 @@ Semua teks ada di `src/lib/components/`:
 
 - `Header.svelte` — nama brand, tagline, menu, CTA
 - `Hero.svelte` — headline, social proof, promo bar
-- `Stories.svelte` — filter acara + testimoni
+- `About.svelte` — cerita brand, stamp, nilai dapur
 - `Press.svelte` — nama klien/partner
 - `HowItWorks.svelte` — langkah pemesanan
 - `Menu.svelte` — 16 menu andalan, filter kategori, aturan menu per paket
 - `Plans.svelte` — paket, harga per pax, aturan menu (Hemat 3, Premium 5, Custom bebas)
+- `OrderModal.svelte` — wizard pesanan 3 langkah + template WhatsApp
+- `Stories.svelte` — filter acara + testimoni (bisa di-swipe/drag)
 - `Different.svelte` — alasan memilih
 - `Footer.svelte` — copyright
 
 Judul dan deskripsi halaman ada di `src/routes/+layout.svelte`.
+
+## Data menu & WhatsApp
+
+- `src/lib/data/menu.js` — daftar 16 menu dan kategori, dipakai Menu & modal pesanan
+- `src/lib/data/whatsapp.js` — nomor WhatsApp dan helper pembuat link
+
+Nomor tujuan ada di `WHATSAPP_NUMBER` (`6285753421213`). Format internasional tanpa `+` atau spasi.
 
 ## Ganti foto
 
@@ -40,5 +49,6 @@ Ganti file dengan nama yang sama. Usahakan di bawah 300 KB per foto.
 ## Catatan
 
 - Desain, layout, dan class Tailwind jangan diubah kalau hanya mengganti konten.
-- CTA saat ini mengarah ke `#plans`. Untuk produksi, ganti ke link WhatsApp.
+- CTA Hemat/Premium membuka modal pesanan; Custom langsung ke WhatsApp.
+- Menu wajib dipilih sesuai aturan paket sebelum bisa lanjut ke langkah pax.
 - Untuk deploy statis, tambahkan `@sveltejs/adapter-static` dan prerender.

@@ -21,6 +21,56 @@
 	const visible = $derived(active === 'Semua acara' ? stories : stories.filter((s) => s.tag === active));
 	let track = $state();
 	const scroll = (dir) => track?.scrollBy({ left: dir * 380, behavior: 'smooth' });
+
+	let drag = null;
+	let dragging = $state(false);
+	let suppressClick = false;
+
+	function setFilter(filter) {
+		active = filter;
+		track?.scrollTo({ left: 0, behavior: 'smooth' });
+	}
+
+	function startDrag(event) {
+		// Touch and pen use the browser's native momentum scrolling.
+		if (event.pointerType !== 'mouse' || event.button !== 0) return;
+		drag = { startX: event.clientX, startLeft: track.scrollLeft, id: event.pointerId, captured: false };
+		dragging = true;
+		suppressClick = false;
+	}
+
+	function moveDrag(event) {
+		if (!drag || event.pointerId !== drag.id) return;
+		const dx = event.clientX - drag.startX;
+		if (!drag.captured && Math.abs(dx) > 5) {
+			drag.captured = true;
+			suppressClick = true;
+			track.setPointerCapture(event.pointerId);
+		}
+		if (!drag.captured) return;
+		event.preventDefault();
+		track.scrollLeft = drag.startLeft - dx;
+	}
+
+	function endDrag(event) {
+		if (!drag || event.pointerId !== drag.id) return;
+		if (drag.captured && track.hasPointerCapture(event.pointerId)) {
+			track.releasePointerCapture(event.pointerId);
+		}
+		drag = null;
+		dragging = false;
+		setTimeout(() => (suppressClick = false), 0);
+	}
+
+	function leaveDrag(event) {
+		if (drag && !drag.captured) endDrag(event);
+	}
+
+	function suppressDragClick(event) {
+		if (!suppressClick) return;
+		event.preventDefault();
+		event.stopPropagation();
+	}
 </script>
 
 <section id="stories" class="bg-cream px-5 py-16 md:px-10 md:py-24">
@@ -37,7 +87,7 @@
 					aria-selected={active === f}
 					class="rounded-full border px-4 py-1.5 text-xs whitespace-nowrap transition max-md:border-forest/20
 						{active === f ? 'border-lime bg-lime/40 font-semibold ring-2 ring-lime ring-offset-2 ring-offset-cream' : 'border-transparent hover:bg-forest/5'}"
-					onclick={() => (active = f)}
+					onclick={() => setFilter(f)}
 				>
 					{f}
 				</button>
@@ -48,7 +98,20 @@
 			<button class="absolute top-1/2 -left-6 z-10 hidden -translate-y-1/2 md:block" aria-label="Sebelumnya" onclick={() => scroll(-1)}><ChevronLeft /></button>
 			<button class="absolute top-1/2 -right-6 z-10 hidden -translate-y-1/2 md:block" aria-label="Berikutnya" onclick={() => scroll(1)}><ChevronRight /></button>
 
-			<div bind:this={track} class="flex snap-x snap-mandatory gap-6 overflow-x-auto px-3 pt-6 pb-4 [scrollbar-width:none] md:justify-center">
+			<div
+				bind:this={track}
+				class="flex snap-x snap-mandatory gap-6 overflow-x-auto px-3 pt-6 pb-4 [scrollbar-width:none] {dragging
+					? 'cursor-grabbing select-none'
+					: 'cursor-grab'}"
+				role="region"
+				aria-label="Testimoni pelanggan"
+				onpointerdown={startDrag}
+				onpointermove={moveDrag}
+				onpointerup={endDrag}
+				onpointercancel={endDrag}
+				onpointerleave={leaveDrag}
+				onclickcapture={suppressDragClick}
+			>
 				{#each visible as s (s.name)}
 					<article class="relative flex w-[19rem] shrink-0 snap-center flex-col rounded-3xl border-2 border-forest/70 bg-cream p-5 shadow-[0_0_0_5px_#fbf7dc,0_0_0_6px_rgba(11,93,64,0.25)] md:w-[22rem]">
 						<span class="h-display absolute -top-3 right-4 rotate-6 rounded-full bg-forest px-3 py-1 text-sm text-lime">{s.loss}</span>
@@ -68,7 +131,7 @@
 							</div>
 						</div>
 
-						<p class="mt-5 flex-1 text-sm leading-relaxed">“{s.quote}{#if s.bold} <b>{s.bold}</b>{/if}”</p>
+						<p class="mt-5 flex-1 text-sm leading-relaxed">“{s.quote}{#if s.bold}{' '}<b>{s.bold}</b>{/if}”</p>
 						<a href="#plans" class="btn-lime mt-6 text-sm">Minta Penawaran</a>
 					</article>
 				{/each}

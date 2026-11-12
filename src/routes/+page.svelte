@@ -1,6 +1,7 @@
 <script>
 	import Header from '#lib/components/Header.svelte';
 	import Hero from '#lib/components/Hero.svelte';
+	import About from '#lib/components/About.svelte';
 	import Stories from '#lib/components/Stories.svelte';
 	import Press from '#lib/components/Press.svelte';
 	import HowItWorks from '#lib/components/HowItWorks.svelte';
@@ -13,6 +14,7 @@
 <Header />
 <main>
 	<Hero />
+	<About />
 	<Press />
 	<HowItWorks />
 	<Menu />
