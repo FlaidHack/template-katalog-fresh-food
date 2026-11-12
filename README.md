@@ -1,31 +1,43 @@
-# Fresh Food — landing page clone
+# Dapur Rasa — template landing jasa katering
 
-SvelteKit 3 + Tailwind CSS v4 + Svelte 5 (runes).
+Template landing page untuk jasa katering acara: pernikahan, acara kantor, syukuran, dan arisan. Dibuat dengan SvelteKit 3 + Tailwind CSS v4 + Svelte 5 (runes).
 
 ## Jalanin
+
 ```bash
 npm install
 npm run dev
 ```
 
-## Ganti gambar
-Semua gambar sekarang pakai satu dummy: `static/images/dummy.jpg`.
-Cari `/images/dummy.jpg` di `src/lib/components/*.svelte`, ganti satu-satu:
-- `Hero.svelte` — background hero + 3 avatar
-- `Stories.svelte` — foto before/after tiap card
-- `HowItWorks.svelte` — gambar step 1 & gambar besar kanan
-- `Different.svelte` — foto meal tengah
+## Ganti teks
 
-## Design tokens (`src/app.css`)
-| Token | Hex |
-|---|---|
-| forest | #0b5d40 |
-| forest-deep | #07492f |
-| lime | #c8f23a |
-| cream | #fbf7dc |
-| ember | #e8622c |
+Semua teks ada di `src/lib/components/`:
 
-Fonts (via @fontsource, offline-safe): Anton (display), Kaushan Script (aksen brush), Outfit (body).
+- `Header.svelte` — nama brand, tagline, menu, CTA
+- `Hero.svelte` — headline, social proof, promo bar
+- `Stories.svelte` — filter acara + testimoni
+- `Press.svelte` — nama klien/partner
+- `HowItWorks.svelte` — langkah pemesanan
+- `Plans.svelte` — paket, harga per pax, fitur
+- `Different.svelte` — alasan memilih
+- `Footer.svelte` — copyright
 
-## Struktur
-`src/lib/components/` → Header, Hero, Stories, Press, HowItWorks, Plans, Different, Footer, plus Badge & Tag (sticker).
+Judul dan deskripsi halaman ada di `src/routes/+layout.svelte`.
+
+## Ganti foto
+
+Semua foto ada di `static/images/`:
+
+- `hero.jpg` — foto hero (sekarang ±6 MB, kompres dulu)
+- `ava1.jpg`, `ava2.jpg`, `ava3.jpg` — avatar testimoni
+- `mealbox.jpg` — foto kotak katering di langkah 1
+- `kurir.jpg` — foto tim/pengiriman
+- `dummy.jpg` — foto hidangan di bagian "Kenapa Kami"
+
+Ganti file dengan nama yang sama. Usahakan di bawah 300 KB per foto.
+
+## Catatan
+
+- Desain, layout, dan class Tailwind jangan diubah kalau hanya mengganti konten.
+- CTA saat ini mengarah ke `#plans`. Untuk produksi, ganti ke link WhatsApp.
+- Untuk deploy statis, tambahkan `@sveltejs/adapter-static` dan prerender.

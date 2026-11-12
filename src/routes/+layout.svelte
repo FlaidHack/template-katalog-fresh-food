@@ -4,8 +4,8 @@
 </script>
 
 <svelte:head>
-	<title>Fresh Food — Healthy Meals, Personalised</title>
-	<meta name="description" content="Premium, ready-to-eat meals tailored to your goals, lifestyle and body." />
+	<title>Dapur Rasa — Katering Acara di Samarinda</title>
+	<meta name="description" content="Katering untuk pernikahan, acara kantor, syukuran, dan arisan. Menu disusun sesuai acara dan anggaran. Minta penawaran via WhatsApp." />
 </svelte:head>
 
 {@render children()}

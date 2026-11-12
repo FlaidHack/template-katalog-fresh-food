@@ -1,23 +1,28 @@
 <script>
-	import { Star, Target, Zap, Clock, User, Wrench } from '@lucide/svelte';
+	import Star from '@lucide/svelte/icons/star';
+	import Target from '@lucide/svelte/icons/target';
+	import Zap from '@lucide/svelte/icons/zap';
+	import Clock from '@lucide/svelte/icons/clock';
+	import User from '@lucide/svelte/icons/user';
+	import Wrench from '@lucide/svelte/icons/wrench';
 
 	const left = [
-		{ icon: Star, title: 'Results', text: '94.7% of clients reach their goals.' },
-		{ icon: Zap, title: 'More energy', text: 'Improved focus, better evenings, and sustained performance.' },
-		{ icon: User, title: 'Personalisation', text: 'Your plan is built using your data, goals, and lifestyle with LAVO+.' }
+		{ icon: Star, title: 'Pengalaman', text: '500+ acara ditangani sejak 2018.' },
+		{ icon: Zap, title: 'Bahan Segar', text: 'Belanja harian, bukan stok lama. Rasa lebih segar.' },
+		{ icon: User, title: 'Menu Custom', text: 'Menu disusun sesuai acara, selera, dan anggaran.' }
 	];
 	const right = [
-		{ icon: Target, title: 'Accuracy', text: 'Exact macros and clean ingredients in every meal.' },
-		{ icon: Clock, title: 'Time-saver', text: 'No shopping, cooking, or calorie counting — we do it all for you.' },
-		{ icon: Wrench, title: 'Flexibility', text: 'Choose delivery days, pause anytime — no penalties.' }
+		{ icon: Target, title: 'Porsi Pas', text: 'Dihitung per tamu, jadi tidak kurang dan tidak berlebih.' },
+		{ icon: Clock, title: 'Tepat Waktu', text: 'Tim datang sebelum acara dimulai, bukan setelah tamu lapar.' },
+		{ icon: Wrench, title: 'Fleksibel', text: 'Bisa tambah porsi, menu, atau alat saji mendekati acara.' }
 	];
 </script>
 
 <section id="different" class="overflow-hidden bg-cream px-5 py-16 md:px-10 md:py-24">
 	<div class="mx-auto max-w-[1200px]">
 		<h2 class="h-display text-6xl text-forest md:text-8xl">
-			What makes us
-			<span class="script block text-3xl text-ember md:-mt-6 md:text-5xl">Different?</span>
+			Kenapa Kami
+			<span class="script block text-3xl text-ember md:-mt-6 md:text-5xl">Berbeda?</span>
 		</h2>
 
 		<div class="relative mt-10 grid items-center gap-4 md:grid-cols-[1fr_17rem_1fr] md:gap-8">
@@ -41,7 +46,14 @@
 			</ul>
 
 			<div class="relative z-10 mx-auto w-64 rotate-[-16deg] overflow-hidden rounded-3xl border-4 border-white/70 shadow-2xl md:w-full">
-				<img src="/images/dummy.jpg" alt="Meal" class="aspect-[3/4] w-full object-cover" style="object-position: 50% 40%" />
+				<img
+					src="/images/dummy.jpg"
+					alt="Hidangan katering"
+					loading="lazy"
+					decoding="async"
+					class="aspect-[3/4] w-full object-cover"
+					style="object-position: 50% 40%"
+				/>
 			</div>
 
 			<ul class="relative z-10 order-3 grid gap-4 md:order-none">
