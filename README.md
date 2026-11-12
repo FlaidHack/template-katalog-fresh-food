@@ -18,7 +18,8 @@ Semua teks ada di `src/lib/components/`:
 - `Stories.svelte` — filter acara + testimoni
 - `Press.svelte` — nama klien/partner
 - `HowItWorks.svelte` — langkah pemesanan
-- `Plans.svelte` — paket, harga per pax, fitur
+- `Menu.svelte` — 16 menu andalan, filter kategori, aturan menu per paket
+- `Plans.svelte` — paket, harga per pax, aturan menu (Hemat 3, Premium 5, Custom bebas)
 - `Different.svelte` — alasan memilih
 - `Footer.svelte` — copyright
 
@@ -28,7 +29,7 @@ Judul dan deskripsi halaman ada di `src/routes/+layout.svelte`.
 
 Semua foto ada di `static/images/`:
 
-- `hero.jpg` — foto hero (sekarang ±6 MB, kompres dulu)
+- `hero.jpg` — foto hero (sudah dikompres ±582 KB; ganti dengan file < 600 KB)
 - `ava1.jpg`, `ava2.jpg`, `ava3.jpg` — avatar testimoni
 - `mealbox.jpg` — foto kotak katering di langkah 1
 - `kurir.jpg` — foto tim/pengiriman

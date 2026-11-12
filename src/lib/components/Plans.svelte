@@ -4,12 +4,12 @@
 	import Check from '@lucide/svelte/icons/check';
 	import Minus from '@lucide/svelte/icons/minus';
 
-	const features = ['Nasi & 3 lauk', 'Sayur & sambal', 'Alat saji', 'Tim serving', 'Menu custom', 'Tasting gratis'];
+	const features = ['Nasi & lauk', 'Sayur & sambal', 'Alat saji', 'Tim serving', 'Menu di luar daftar', 'Tasting gratis'];
 
 	const plans = [
-		{ name: 'Hemat', sub: 'Untuk arisan & syukuran', on: [true, true, false, false, false, false], price: 'Rp 35.000 / pax', cta: 'Pilih Hemat', featured: false },
-		{ name: 'Premium', sub: 'Paling sering dipilih', on: [true, true, true, true, true, false], price: 'Rp 55.000 / pax', cta: 'Pilih Premium', featured: true },
-		{ name: 'Custom', sub: 'Menu sesuai acara', on: [true, true, true, true, true, true], price: 'Rp 75.000 / pax', cta: 'Konsultasi Custom', featured: false }
+		{ name: 'Hemat', sub: 'Untuk arisan & syukuran', menu: '3 menu / pax', menuNote: '1 nasi + 1 lauk + 1 sayur', on: [true, true, false, false, false, false], price: 'Rp 35.000 / pax', cta: 'Pilih Hemat', featured: false },
+		{ name: 'Premium', sub: 'Paling sering dipilih', menu: '5 menu / pax', menuNote: '1 nasi + 2 lauk + 1 sayur + 1 pelengkap', on: [true, true, true, true, false, false], price: 'Rp 55.000 / pax', cta: 'Pilih Premium', featured: true },
+		{ name: 'Custom', sub: 'Menu sesuai acara', menu: 'Bebas / pax', menuNote: 'Bisa di luar 16 menu andalan', on: [true, true, true, true, true, true], price: 'Rp 75.000 / pax', cta: 'Konsultasi Custom', featured: false }
 	];
 </script>
 
@@ -31,7 +31,16 @@
 					<h3 class="h-display text-4xl">{p.name}</h3>
 					<p class="mt-2 text-xs opacity-70">{p.sub}</p>
 
-					<ul class="mt-8 grid gap-3 text-left text-sm">
+					<div
+						class="mt-5 rounded-2xl border border-dashed px-4 py-3 {p.featured
+							? 'border-forest/25 bg-forest/5'
+							: 'border-cream/20 bg-cream/5'}"
+					>
+						<p class="h-display text-2xl {p.featured ? 'text-forest' : 'text-lime'}">{p.menu}</p>
+						<p class="mt-1 text-[0.65rem] leading-snug opacity-65">{p.menuNote}</p>
+					</div>
+
+					<ul class="mt-6 grid gap-3 text-left text-sm">
 						{#each features as f, i (f)}
 							<li class="flex items-center gap-3 {p.on[i] ? '' : 'opacity-35'}">
 								<span class="grid size-5 shrink-0 place-items-center rounded-full {p.on[i] ? 'bg-lime text-forest-deep' : 'border border-current'}">
